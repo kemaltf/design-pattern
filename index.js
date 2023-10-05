@@ -7,7 +7,7 @@ class Car {
   }
 }
 
-class carFactory {
+class CarFactory {
   createCar(type) {
     switch (type) {
       case 'civic':
@@ -18,8 +18,38 @@ class carFactory {
   }
 }
 
-// Create
-const factory = new carFactory();
-const myHonda = factory.createCar('honda');
+class SUV {
+  constructor(doors, engine, color) {
+    this.doors = doors;
+    this.engine = engine;
+    this.color = color;
+  }
+}
 
-console.log(myHonda);
+class SuvFactory {
+  createCar(type) {
+    switch (type) {
+      case 'cx5':
+        return new Car(4, 'v6', 'grey');
+      case 'sante fe':
+        return new Car(2, 'v8', 'red');
+    }
+  }
+}
+
+// Create
+const carFactory = new CarFactory();
+const suvFactory = new SuvFactory();
+
+// abstract factory
+const autoManufactuter = (type, model) => {
+  switch (type) {
+    case 'car':
+      return carFactory.createCar(model);
+    case 'suv':
+      return suvFactory.createCar(model);
+  }
+};
+
+const cx5 = autoManufactuter('suv', 'cx5');
+console.log(cx5);
